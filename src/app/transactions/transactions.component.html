@@ -1,0 +1,43 @@
+<div *ngIf="transactions.length > 0">
+    <table class="table table-primary text-center">
+        <thead>
+            <tr>
+                <th>DATA</th>
+                <th>TIPO</th>
+                <th>DESCRIZIONE</th>
+                <th>IMPORTO</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of transactions">
+                <td>{{t.data}}</td>
+                <td>{{t.tipo | uppercase}}</td>
+                <td>{{t.descrizione}}</td>
+                <td>{{t.importo | currency: '€'}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary">
+                        <i class="bi-pencil-square" (click)="editTransaction(t)"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" (click)="deleteTransaction(t)">
+                        <i class="bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">TOTALE:</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" tabindex="-1"
+                value="{{importoTotale | currency: '€'}}">
+        </div>
+    </div>
+</div>
+<hr>
+<app-transaction-edit (onAdded)="reload()" (onEdit)="transactionEdited()" [edit]="transactionInEdit"
+    [editMode]="editMode"></app-transaction-edit>

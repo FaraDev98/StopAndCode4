@@ -1,0 +1,47 @@
+<form #editTrans="ngForm" class="form">
+
+    <div class="row">
+        <div class="input-group mb-3 col">
+            <span class="input-group-text" id="data">DATA</span>
+            <input type="text" class="form-control" name="data" [(ngModel)]="edit.data" required>
+        </div>
+
+        <div class="input-group mb-3 col">
+            <span class="input-group-text" id="tipo">TIPO</span>
+            <input type="text" class="form-control" placeholder="Entrata/Uscita" name="tipo" [(ngModel)]="edit.tipo">
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="input-group mb-3 col">
+            <span class="input-group-text" id="descrizione">DESCRIZIONE</span>
+            <input type="text" class="form-control" name="desccrizione" [(ngModel)]="edit.descrizione">
+        </div>
+
+        <div class="input-group mb-3 col">
+            <span class="input-group-text" id="importo">€</span>
+            <input type="number" class="form-control" name="importo" [(ngModel)]="edit.importo">
+            <span class="input-group-text">.00</span>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-success" [disabled]="!editTrans.valid" *ngIf="!edit.id"
+            (click)="addTransaction()">
+            <i class="bi-plus-circle"></i>
+        </button>
+
+        <button type="button" class="btn btn-success" [disabled]="!editTrans.valid" *ngIf="edit.id"
+            (click)="editTransaction()">
+            <i class="bi-pencil-fill"></i>
+        </button>
+
+        <button type="button" class="btn btn-danger" *ngIf="edit.id" (click)="abort()">
+            <i class="bi-arrow-left"></i>
+        </button>
+    </div>
+
+
+</form>
