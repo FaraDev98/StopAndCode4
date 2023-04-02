@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { TransactionsService } from '../transactions.service';
 import { Transaction, TransactionDto } from '../models/transaction';
 
@@ -13,7 +13,7 @@ export class TransactionEditComponent {
   constructor(private transactionsService: TransactionsService) { }
 
   @Input()
-  edit = new TransactionDto()
+  edit = new TransactionDto
 
   @Input()
   editMode: boolean = false;
@@ -25,14 +25,15 @@ export class TransactionEditComponent {
   onEdit = new EventEmitter<any>()
 
   addTransaction() {
-    this.transactionsService.add(this.edit)
+    this.transactionsService.add(this.edit!)
       .subscribe(res => {
         this.onAdded.emit(res);
+        this.edit = new TransactionDto();
       })
   }
 
   editTransaction() {
-    this.transactionsService.edit(this.edit)
+    this.transactionsService.edit(this.edit!)
       .subscribe(res => {
         this.onEdit.emit(res);
         this.edit = new TransactionDto();
@@ -41,6 +42,8 @@ export class TransactionEditComponent {
 
   abort() {
     this.edit = new TransactionDto()
+    this.onEdit.emit()
+    console.log("abort")
   }
 
 }
